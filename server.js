@@ -4,26 +4,22 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware JSON:in käsittelyyn
 app.use(express.json());
 
-// Serve the index.html manually
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Kirjautumisendpoint
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
     if (username === 'user' && password === 'pass') {
-        res.status(200).json({ message: 'Kirjautuminen onnistui!' });
+        res.status(200).json({ message: 'Successfully signed in!' });
     } else {
-        res.status(401).json({ info: 'Virheellinen käyttäjänimi tai salasana' });
+        res.status(401).json({ info: 'Incorrect username or password!' });
     }
 });
 
-// Käynnistä palvelin
 app.listen(PORT, () => {
-    console.log(`Palvelin käynnissä: http://localhost:${PORT}`);
+    console.log(`Server ready: http://localhost:${PORT}`);
 });

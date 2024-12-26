@@ -100,12 +100,10 @@
     document.getElementById('loginForm').addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        // Hae lomakkeen tiedot
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
         try {
-            // Lähetä POST-pyyntö
             const response = await fetch('/login', {
                 method: 'POST',
                 headers: {
@@ -118,7 +116,7 @@
 
             const messageElement = document.getElementById('message');
             if (response.ok) {
-                messageElement.textContent = 'Sign in successful!';
+                messageElement.textContent = 'Successfully signed in!';
                 messageElement.className = 'success';
             } else {
                 messageElement.textContent = 'Sign in failed! ' + result.message;
