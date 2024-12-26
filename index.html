@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirjautuminen</title>
+    <style>
+        * {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("bg-color.avif");
+            background-size: cover;
+            background-position: center;
+        }
+        #loginForm {
+            background-color: rgba(24, 79, 146, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: left;
+        }
+        #loginForm h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #loginForm label {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        #loginForm input[type="text"],
+        #loginForm input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+        }
+        #loginForm input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #loginForm input[type="submit"]:hover {
+            background-color: #e6b800;
+        }
+        #copilot {
+            color: #fff;
+            text-align: center;
+            margin-top: 10px;
+        }
+        #message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none; /* Hidden by default */
+        }
+        #message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        #message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <p id="copilot">Page made by ChatGPT and Github Copilot.</p>
+        <h2>Sign In to continue.</h2>
+        <label for="username">Käyttäjänimi</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Salasana</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Kirjaudu">
+        <p id="message"></p>
+    </form>
+</body>
+</html>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        // Hae lomakkeen tiedot
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            // Lähetä POST-pyyntö
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            const result = await response.json();
+
+            const messageElement = document.getElementById('message');
+            if (response.ok) {
+                messageElement.textContent = 'Sign in successful!';
+                messageElement.className = 'success';
+            } else {
+                messageElement.textContent = 'Sign in failed! ' + result.message;
+                messageElement.className = 'error';
+            }
+            messageElement.style.display = 'block';
+        } catch (error) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = 'Error: ' + error.message;
+            messageElement.className = 'error';
+            messageElement.style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>
