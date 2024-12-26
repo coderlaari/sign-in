@@ -3,16 +3,15 @@
 ## Introduction
 The **Sign-In** project is designed to provide a simple and efficient way to manage user authentication. It includes features such as:  
 - User registration  
-- Login  
-- Password recovery  
-- Profile management  
+- Login   
+- Profile management **Coming!**  
 
 ---
 
 ## Features
 - **User Registration:** Create a new account with unique credentials. **Coming!**
 - **User Login:** Securely access your account.  
-- **Profile Management:** Update user information conveniently.
+- **Profile Management:** Update user information conveniently. **Coming!**
 
 ---
 
